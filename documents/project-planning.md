@@ -39,11 +39,11 @@ What business or real world problem am I going to be solving
 - Slogan: "Helping Home Feel Like Home"
 
 - Color palette:
-  - Charcoal (Dark Mode): 2C4251
-  - White (Light Mode): FFFFFF
-  - Jonquil: ECC30B
-  - Coral: F37748
-  - Indian Red: D56062
+  - Charcoal (Dark Mode): #2C4251
+  - White (Light Mode): #FFFFFF
+  - Jonquil: #ECC30B
+  - Coral: #F37748
+  - Indian Red: #D56062
 
 - Images
 
