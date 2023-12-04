@@ -1,0 +1,103 @@
+/* Custome Variables */
+:root {
+  /* Variable for organizing elements based on specific size */
+  --main-shift: 200px;
+}
+
+* {
+  /* Removes all excess whitespace around elements */
+  margin: 0;
+  padding: 0;
+  /* Remove all underlines from hyperlinks and all bullet points from lists */
+  text-decoration: none;
+  list-style: none;
+  color: #FFFFFF;
+  /* Makes sure that any padding or border are accounted for in an element's width or height */
+  box-sizing: border-box;
+}
+
+/* Sidbar Styles */
+#sidebar {
+  /* Sets position of sidebar to be constant on the page */
+  position: fixed;
+  width: var(--main-shift);
+  /* Sets sidebar viewheight to 100% */
+  height: 100vh;
+  background-color: #F37748;
+  padding: 30px 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.menu-item {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 18px;
+  /* Hover animation settings */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.menu-item:hover {
+  background-color: white;
+  color: #2C4251;
+}
+
+footer {
+  /* If border-box was not present, would appear off the page */
+  margin-top: auto;
+  padding: 0 20px;
+}
+
+
+
+/* <main> Styles */
+main {
+  /* Cuts off <main> from being behind the sidebar */
+  margin-left: var(--main-shift);
+
+  display: flex;
+  /* Centers horizontally */
+  justify-content: center;
+  /* Element needs height to be centered vertically */
+  height: 100vh;
+  align-items: center;
+}
+
+/* <main> Homepage Styles */
+#reminders-wrapper {
+  background-color: #F37748;
+  height: 500px;
+  width: 500px;
+  display: grid;
+  /* Creating grid cells and filling them with a */
+  grid-template-areas:
+    "large-reminder medium-reminder"
+    "large-reminder medium-reminder"
+    "large-reminder small-reminder"
+  ;
+}
+
+#reminders-wrapper > div {
+  border: 5px solid white;
+  padding: 5px;
+  text-align: center;
+}
+
+#large-reminder {
+  grid-area: large-reminder;
+}
+
+#medium-reminder {
+  grid-area: medium-reminder;
+}
+
+#small-reminder {
+  grid-area: small-reminder;
+}
