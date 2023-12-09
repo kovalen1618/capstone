@@ -1,9 +1,8 @@
 # Definition Statement
 
 I want to build an application that...
-- Application Goal: Decrease lack of family interaction and help organize/maintain a home & family relations.
-- End User Incorporation: I will have my boyfriend and his siblings be the family to take care of the cats/dogs,
-check/update the fridge contents, and add any other misc tasks
+- Application Goal: Vastly improves someone's motivation, health, and productivity for their everyday life
+- End User Incorporation: I will have my boyfriend, his siblings, and myself be the main users to see if it improves our daily productivity
 - End User Incorporation Start Date: Once basic JavaScript functionality is implemented
 - End User Incorporation Importance: Get a better understanding of what feels/looks best in the application and
 check for bugs
@@ -12,9 +11,12 @@ check for bugs
 # Audience
 
 Who is using my application
-- Family
-- Family friends
-- Close household neighbors
+- Students
+- Health Trackers
+- Athletes
+- Workers
+- Goal Oriented People
+- Anyone
 
 # Content Outline
 
@@ -23,27 +25,28 @@ What will be on each page
 
 What is the functionality of each page
 - Home: Display reminders
-- Reminder Focus: Displays in-depth content for a reminder
-- Create Reminder: Allows users to fill out a form to create a reminder
-- Reminder History: Allows user to view previous reminders to quickly create a reminder from a previous one
+- Create Task: Allows users to fill out a form to create a task and adding goals
+- Badges: Allows user to view their accomplishments for completing goals
+- About: Shows user app & developer bio
+- Contact: Contact info for portfolios and bug submission
 - Settings: Allow users to change application settings such as theme, notifications, etc.
 
 What is purpose of my application
-- Organize/maintain household tasks
+- Increase personal productivity
 
 What business or real world problem am I going to be solving
-- The real world problem is that of a household struggling to maintain all the daily routines
+- The real world problem is that of a person struggling to improve themselves
 
 ### Website attributes
 
-- Slogan: "Helping Home Feel Like Home"
+- Slogan: "Prioritizing 1 Task at a Time"
 
 - Color palette:
-  - Charcoal (Dark Mode): #2C4251
+  - Black (Dark Mode): #000
   - White (Light Mode): #FFFFFF
-  - Jonquil: #ECC30B
-  - Coral: #F37748
-  - Indian Red: #D56062
+  - Viridian: #3F7859
+  - Berkely Blue: #1F385C
+  - Red (NCS): #BF0D34
 
 - Images
 
@@ -51,10 +54,14 @@ What business or real world problem am I going to be solving
 
 - Logos
 
+<img src="./img/logo.png" width="300px" />
+
 - Navigation
   - Home
-  - Create Reminder
-  - Reminder History
+  - Create Task
+  - Badges
+  - About
+  - Contact
   - Settings
 
 # Mural User Story Map
@@ -66,29 +73,25 @@ What business or real world problem am I going to be solving
 ### List of applications researched
 
 - What do you like about each site
-  - _Cozi_: Has a recipe page that family members can choose from a wide variety of dishes
-  - _FamilyWall_: The homepage displays a "wall" of cards for a plethora of options such as budgets,
-  photo galleries, and even location tracking for everyone.
-  - _Pixie_: Allows users to create "boards" so family members can view important information about
-  specific family issues such as home maitenance, car needs, etc. while giving suggestions for what
-  might need to be done
+  - _Pomofocus_: The app is intuitive, nice looking, contains a report section showing graphs of user progress, and has a lot of customization
+  - _Super-Productivity_: Has the ability to add Projects for switching between different focus profiles on certain days (study Tuesday, work Thursday, YouTube Saturday)
+  - _Health by Apple_: Allows the tracking of different health aspects and returns data in that form
 
 - What do you NOT like about each site
-  - _Cozi_: The interface is bland and doesn't have a lot of options for what tasks need to be done
-  - _FamilyWall_: It does not display any time-sensitive information on the homepage
-  - _Pixie_: Adding/editing content is not very intuitive
+  - _Pomofocus_: Simply lacks some of my vision for displaying information to users and is a pomodoro focused productivity application
+  - _Super-Productivity_: Not super intuitive, and when explaining features in the app it is filled with long paragraphs of instructions
+  - _Health by Apple_: Adding/editing content is not very intuitive and it does not automatically update graphs from a bundle of data you put in unless using a device like an Apple Watch
 
 - How will your application be different
-  - My application will display time-sensitive tasks on the homepage and will have a much more
-  intuitive UI with better styling.
+  - My application will display a few graphs at once with a fair amount of information and allow for a seamless adding/editing/deletion and progression of tasks
 
 # Wireframes
 
-![Wireframe](./img/wireframe.png)
+<img src="./img/wireframe.png" width="500px" />
 
 # User Flow Diagram
 
-![User Flow Image](./img/userflow.png)
+<img src="./img/userflow.png" width="500px" />
 
 # SWOT Analysis
 

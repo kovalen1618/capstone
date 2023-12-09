@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: black;
+}
+
 /* Sidbar Styles */
 #sidebar {
   /* Sets position of sidebar to be constant on the page */
@@ -23,7 +27,7 @@
   width: var(--main-shift);
   /* Sets sidebar viewheight to 100% */
   height: 100vh;
-  background-color: #F37748;
+  background-color: #1F385C;
   padding: 30px 0;
 
   display: flex;
@@ -72,21 +76,22 @@ main {
 
 /* <main> Homepage Styles */
 #reminders-wrapper {
-  background-color: #F37748;
-  height: 500px;
-  width: 500px;
+  /* background-color: #1F385C; */
+  height: 650px;
+  width: 1200px;
   display: grid;
   /* Creating grid cells and filling them with a */
   grid-template-areas:
-    "large-reminder medium-reminder"
-    "large-reminder medium-reminder"
-    "large-reminder small-reminder"
+    "large-reminder small-reminder small-reminder"
+    "large-reminder medium-reminder medium-reminder"
+    "large-reminder medium-reminder medium-reminder"
   ;
 }
 
 #reminders-wrapper > div {
   border: 5px solid white;
   padding: 5px;
+  margin: 50px;
   text-align: center;
 }
 
