@@ -1,6 +1,6 @@
-# Capstone: Hearth
-## Helping Home Feel Like Home
+# Capstone: Priora
+## Prioritizing One Task at a Time
 
-Hearth is a single-page application (SPA) focused on helping families fulfill tasks at home in an
-interactive, and non-intrusive, manner. Users can pick and choose which tasks to accept and be
-rewarded with a badge system for their support in the family and home maitenance.
+Priora is a productivity app aimed to bring users a feeling of fulfillment and peace of mind.
+
+When using Priora, your advent task is to put in everything you aim to accomplish within a single day. You have the ability to name your tasks and give them the amount of time you wish to focus on each one to accomplish your goals. View your overall progress with a series of tailored graphs and charts, and enjoy the satisfaction of earning badges for all of your hard work! Support yourself now with Priora by setting goals, and finishing each step towards them with Priora.
