@@ -1,7 +1,12 @@
+/* Installed normalize.css with npm */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 /* Custome Variables */
 :root {
-  /* Variable for organizing elements based on specific size */
-  --main-shift: 200px;
+  font-size: 20px;
+
 }
 
 * {
@@ -14,6 +19,8 @@
   color: #FFFFFF;
   /* Makes sure that any padding or border are accounted for in an element's width or height */
   box-sizing: border-box;
+
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -24,48 +31,65 @@ body {
 #sidebar {
   /* Sets position of sidebar to be constant on the page */
   position: fixed;
-  width: var(--main-shift);
+  width: 12rem;
   /* Sets sidebar viewheight to 100% */
   height: 100vh;
   background-color: #1F385C;
   padding: 30px 0;
-
   display: flex;
   flex-direction: column;
+
+  transition: left 600ms ease;
 }
 
 #header {
-  text-align: center;
-  font-size: 40px;
+  align-self: center;
   margin-bottom: 30px;
 }
 
-.menu-item {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 18px;
-  /* Hover animation settings */
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+#logo {
+  width: 9rem;
 }
 
-.menu-item:hover {
-  background-color: white;
-  color: #2C4251;
+#chevron {
+  display: none;
+  position: fixed;
+  margin: 1.5rem;
+
+  transition: margin-left 600ms ease, transform 600ms ease;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  /* Hover animation settings */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.menu-link:hover {
+  background-color: #FFFFFF;
+}
+
+.menu-link:hover .fa-solid, .menu-link:hover .menu-text {
+  color: #1F385C;
+}
+
+.menu-text {
+  margin-left: 1rem;
 }
 
 footer {
   /* If border-box was not present, would appear off the page */
   margin-top: auto;
-  padding: 0 20px;
+  align-self: center;
 }
-
-
 
 /* <main> Styles */
 main {
   /* Cuts off <main> from being behind the sidebar */
-  margin-left: var(--main-shift);
-
+  margin-left: 12rem;
   display: flex;
   /* Centers horizontally */
   justify-content: center;
@@ -76,11 +100,10 @@ main {
 
 /* <main> Homepage Styles */
 #reminders-wrapper {
-  /* background-color: #1F385C; */
   height: 650px;
   width: 1200px;
   display: grid;
-  /* Creating grid cells and filling them with a */
+  /* Creating grid cells and filling them */
   grid-template-areas:
     "large-reminder small-reminder small-reminder"
     "large-reminder medium-reminder medium-reminder"
@@ -90,6 +113,8 @@ main {
 
 #reminders-wrapper > div {
   border: 5px solid white;
+  border-radius: 30px;
+  background-color: #1F385C;
   padding: 5px;
   margin: 50px;
   text-align: center;
@@ -105,4 +130,131 @@ main {
 
 #small-reminder {
   grid-area: small-reminder;
+}
+
+/* <main> Contact Styles */
+#contact-form {
+  width: 35rem;
+  background-color: #1F385C;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  position: relative;
+  border: 5px solid #FFFFFF;
+  z-index: 2;
+}
+
+#contact-form > header {
+  margin-bottom: 25px;
+}
+
+#contact-form > header > h1 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+#contact-form > input, textarea, button {
+  color: black;
+  margin: 10px 0;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#contact-form > input {
+  width: 70%;
+}
+
+#contact-form > button {
+  margin: 25px 0;
+  width: 35%;
+  align-self: center;
+  border: 3px solid #FFFFFF;
+  background-color: #FFFFFF;
+  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+
+#contact-form > button:hover {
+  background-color: #3F7859;
+  color: #FFFFFF;
+}
+
+/* Media Queries */
+/* Took me 30 min to figure out I was missing a colon between width and 500px to explain it not working */
+@media (max-width: 500px) {
+  /* Sidebar Styles */
+  #sidebar {
+    left: -100%;
+    width: 8rem;
+    height: 100vh;
+    background-color: #1F385C;
+    z-index: 1;
+  }
+
+  #sidebar.active {
+    left: 0;
+  }
+
+  #header {
+    margin: 3rem 0 0 0;
+  }
+
+  #chevron {
+    display: block;
+    align-self: center;
+    z-index: 2;
+  }
+
+  #chevron.active {
+    margin-left: 3.75rem;
+    transform: rotate(-180deg);
+  }
+
+  #logo {
+    width: 3rem;
+  }
+
+  .menu-text {
+    margin-left: 0.5rem ;
+  }
+
+  footer {
+    display: none;
+  }
+
+  /* <main> Styles */
+  main {
+    margin-left: 0;
+  }
+
+  main.active {
+    opacity: 25%;
+  }
+
+  #reminders-wrapper {
+    height: 100vh;
+    display: block;
+  }
+
+  #large-reminder {
+    height: 70vh;
+  }
+
+  #medium-reminder {
+    height: 60vh;
+    margin-bottom: 10rem;
+  }
+
+  #small-reminder {
+    height: 15vh;
+  }
+
+  #contact-form {
+    width: 15rem;
+  }
+
+  #contact-form > button {
+    width: 70%;
+  }
 }

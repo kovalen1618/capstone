@@ -56,6 +56,10 @@ What business or real world problem am I going to be solving
 
 <img src="./img/logo.png" width="300px" />
 
+- APIs
+  - [Google Calendar](https://developers.google.com/calendar)
+  - [Tredict Fitness API](https://www.tredict.com/blog/oauth_docs/)
+
 - Navigation
   - Home
   - Create Task
