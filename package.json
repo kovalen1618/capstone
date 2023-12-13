@@ -2,7 +2,10 @@
   "name": "savvy-starter",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "parcel-build": "parcel build index.html && cp _redirects ./dist/",
+    "serve": "parcel index.html"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,7 +17,9 @@
     "prettier": "1.19.1"
   },
   "dependencies": {
+    "html-literal": "^1.1.0",
     "normalize.css": "^8.0.1",
+    "parcel": "^2.10.3",
     "yargs-parser": ">=13.1.2"
   }
 }
