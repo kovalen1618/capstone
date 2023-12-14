@@ -43,7 +43,8 @@ body {
 }
 
 #header {
-  align-self: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 30px;
 }
 
@@ -65,7 +66,7 @@ body {
   justify-content: center;
   height: 3rem;
   /* Hover animation settings */
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .menu-link:hover {
