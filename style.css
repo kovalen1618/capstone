@@ -6,7 +6,6 @@
 /* Custome Variables */
 :root {
   font-size: 20px;
-
 }
 
 * {
@@ -131,6 +130,48 @@ main {
 
 #small-reminder {
   grid-area: small-reminder;
+}
+
+/* <main> About Styles */
+#about-wrapper {
+  width: 35rem;
+  background-color: #1F385C;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+#about-banner {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+  background-color: #000;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem #000;
+}
+
+#about-banner > h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+#about-banner > img {
+  width: 20rem;
+}
+
+#about-text-wrapper {
+  text-align: justify;
+}
+
+#about-text-wrapper > p {
+  margin-top: 1rem;
 }
 
 /* <main> Contact Styles */
