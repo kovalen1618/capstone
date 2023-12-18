@@ -6,7 +6,7 @@ import * as store from "./store";
 
 function render(state = store.Home) {
   document.querySelector("#root").innerHTML = `
-    ${components.Nav(store.Links)}
+    ${components.Nav(store.Links, state)}
     ${components.Main(state)}
   `;
   router.updatePageLinks();
@@ -28,6 +28,7 @@ router
 // could not find the child #chevron
 const rootContainer = document.getElementById("root");
 
+// Event delegation for a working post-SPA chevron
 rootContainer.addEventListener("click", e => {
   if (e.target.matches("#chevron")) {
     mobileMenu();

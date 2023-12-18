@@ -5,9 +5,9 @@ export default [
     title: "Home",
     text: "",
     style: "",
-    icon: `<h1 id="header">
+    icon: `<header id="header">
       <img id="logo" src="${logoImage}" alt="Priora Logo" />
-    </h1>`
+    </header>`
   },
   {
     title: "Create",
