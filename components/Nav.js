@@ -1,6 +1,6 @@
 import html from "html-literal";
 
-export default links => html`
+export default (links, state) => html`
   <i id="chevron" class="fa-solid fa-chevron-right"></i>
 
   <nav id="sidebar">
@@ -9,7 +9,8 @@ export default links => html`
       ${links
     .map(
       link =>
-        `<li><a class="${link.style}" href="/${link.title}"
+        `<li><a class="${link.style} ${link.title === state.view ? "active" : " "
+        }" href="/${link.title}"
         title="${link.title}" data-navigo>${link.icon}${link.text}</a></li>`
     )
     .join("")}
