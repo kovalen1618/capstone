@@ -1,4 +1,5 @@
 export default {
   header: "Create Page",
-  view: "Create"
+  view: "Create",
+  exercises: []
 };

@@ -1,8 +1,11 @@
 import Navigo from "navigo";
 import { capitalize } from "lodash";
+import axios from "axios";
 
 import * as components from "./components";
 import * as store from "./store";
+
+const router = new Navigo("/");
 
 function render(state = store.Home) {
   document.querySelector("#root").innerHTML = `
@@ -12,7 +15,45 @@ function render(state = store.Home) {
   router.updatePageLinks();
 }
 
-const router = new Navigo("/");
+router.hooks({
+  before: (done, params) => {
+    // We need to know what view we are on to know what data to fetch
+    const view =
+      params && params.data && params.data.view
+        ? capitalize(params.data.view)
+        : "Home";
+    // Add a switch case statement to handle multiple routes
+    switch (view) {
+      // Load on Create page to choose exercises
+      case "Create":
+        axios
+          .get(
+            `https://wger.de/api/v2/exercise?appid=${process.env.WGER_API_KEY}`
+          )
+          .then(response => {
+            console.log("response", response);
+            store.Create.exercises = response.data;
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+        break;
+      default:
+        done();
+    }
+  },
+  already: params => {
+    const view =
+      params && params.data && params.data.view
+        ? capitalize(params.data.view)
+        : "Home";
+
+    render(store[view]);
+  }
+});
+
 router
   .on({
     "/": () => render(),
