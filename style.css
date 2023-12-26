@@ -141,6 +141,62 @@ main {
   grid-area: small-reminder;
 }
 
+/* <main> Create Task Styles */
+.input-bar {
+  position: relative;
+  width: 20rem;
+  height: 3rem;
+  margin: 0 0 2rem 0;
+}
+
+.form-input {
+  font-size: inherit;
+  position: absolute;
+  width: 15rem;
+  height: 3rem;
+  top: 0;
+  left: 0;
+  padding: 0 1rem;
+  border-radius: 12.5px;
+  outline: none;
+  border: 2px solid white;
+  background-color: black;
+  transition: all 160ms ease-in;
+}
+
+.form-textarea {
+  font-size: inherit;
+  position: absolute;
+  color: white;
+  padding: 1rem;
+  border-radius: 12.5px;
+  top: -0.5rem;
+  outline: none;
+  border: 2px solid white;
+  background-color: black;
+  transition: all 160ms ease-in;
+}
+
+.form-input:hover {
+
+}
+
+.form-input:focus, .form-textarea:focus {
+  border-color: #3F7859;
+}
+
+
+
+.form-label {
+  position: absolute;
+  top: -0.5rem;
+  font-size: 0.8rem;
+  left: 1rem;
+  padding: 0 0.25rem;
+  cursor: text;
+  background-color: black;
+}
+
 /* <main> About Styles */
 #about-wrapper, #badges-wrapper, #settings-wrapper, #create-wrapper {
   width: 35rem;
