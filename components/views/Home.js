@@ -1,5 +1,4 @@
 import html from "html-literal";
-import { Chart } from "chart.js/auto";
 
 export default () => html`
   <div id="home-wrapper">

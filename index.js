@@ -129,6 +129,7 @@ router
       let view = capitalize(params.data.view);
       render(store[view]);
       // Trigger chart creation when rendering the Home view to make sure chart is rendered anytime the Home page is viewed
+      // ! Still buggy, doesn't render immediately all the time - also doesn't load immediately on first render of "/"
       if (view === "Home") {
         createChart();
       }
