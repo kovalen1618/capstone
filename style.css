@@ -108,19 +108,19 @@ main {
 }
 
 /* <main> Homepage Styles */
-#reminders-wrapper {
+#home-wrapper {
   height: 650px;
   width: 1200px;
   display: grid;
   /* Creating grid cells and filling them */
   grid-template-areas:
-    "large-reminder small-reminder small-reminder"
-    "large-reminder medium-reminder medium-reminder"
-    "large-reminder medium-reminder medium-reminder"
+    "tasks small-reminder small-reminder"
+    "tasks medium-reminder medium-reminder"
+    "tasks medium-reminder medium-reminder"
   ;
 }
 
-#reminders-wrapper > div {
+#home-wrapper > div {
   border: 5px solid white;
   border-radius: 30px;
   background-color: #1F385C;
@@ -129,8 +129,16 @@ main {
   text-align: center;
 }
 
-#large-reminder {
-  grid-area: large-reminder;
+#tasks {
+  grid-area: tasks;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#chart-container {
+  width: 15rem;
+  margin: 1rem 0;
 }
 
 #medium-reminder {
@@ -308,7 +316,7 @@ main {
     opacity: 25%;
   }
 
-  #reminders-wrapper {
+  #home-wrapper {
     height: 100vh;
     display: block;
   }
