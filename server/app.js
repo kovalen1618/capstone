@@ -3,6 +3,16 @@ import express from "express";
 // Initialize the Express application
 const app = express();
 
+// Logging Middleware
+const logging = (request, response, next) => {
+  console.log(
+    `${request.method} ${request.url} ${new Date().toLocaleString("en-us")}`
+  );
+  next();
+};
+
+app.use(logging);
+
 // Handle the request with HTTP GET method from http://localhost:4040/status
 app.get("/status", (request, response) => {
   // Create the headers for response by default 200
