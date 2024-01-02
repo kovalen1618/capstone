@@ -79,9 +79,20 @@ router.hooks({
 // ChartJS
 const createChart = () => {
   // ? When database is implemented, be sure to find a way to populated chartData with data from MongoDB
+  // Tasks Chart
   const chartData = {
-    labels: ["Python", "Java", "JavaScript", "C#", "Others"],
-    data: [30, 17, 10, 7, 36]
+    labels: [
+      "Sleep",
+      "Exercise: Run",
+      "Rest",
+      "Work: Coding",
+      "Rest",
+      "School",
+      "Study: Coding",
+      "Gaming",
+      "Rest"
+    ],
+    data: [33, 5, 5, 15, 5, 18, 10, 5, 4]
   };
 
   const taskChart = document.querySelector("#task-chart");
@@ -119,6 +130,65 @@ const createChart = () => {
   };
 
   populateUl();
+
+  // Graphs Chart
+  const graphData = {
+    labels: [
+      "Sleep",
+      "Exercise: Run",
+      "Rest",
+      "Work: Coding",
+      "Rest",
+      "School",
+      "Study: Coding",
+      "Gaming",
+      "Rest"
+    ],
+    datasets: [
+      {
+        label: "Jan 1st - Jan 7th",
+        data: [33, 5, 5, 15, 5, 18, 10, 5, 4],
+        fill: true,
+        backgroundColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(255, 159, 64, 1)",
+          "rgba(255, 205, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(201, 203, 207, 1)"
+        ]
+      },
+      {
+        label: "Jan 8th - 14th",
+        data: [30, 8, 5, 10, 10, 10, 5, 23, 4],
+        fill: true,
+        backgroundColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(255, 159, 64, 1)",
+          "rgba(255, 205, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(201, 203, 207, 1)"
+        ]
+      }
+    ]
+  };
+
+  const graphChart = document.querySelector("#graph-chart");
+
+  new Chart(graphChart, {
+    type: "bar",
+    data: graphData,
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
 };
 
 // Renders

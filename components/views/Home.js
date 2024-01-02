@@ -3,9 +3,9 @@ import html from "html-literal";
 export default () => html`
   <div id="home-wrapper">
     <div id="tasks">
-      <h1>Tasks Content</h1>
+      <h1>Tasks</h1>
 
-      <div id="chart-container">
+      <div id="task-container">
         <canvas id="task-chart"></canvas>
       </div>
 
@@ -13,11 +13,19 @@ export default () => html`
         <ul></ul>
       </div>
     </div>
-    <div id="small-reminder">
-      <h3>Clocks</h3>
+    <div id="clocks">
+      <h3>Clock</h3>
+      <div id="clock-container">
+        <h1 id="clock">
+          00:24:12
+        </h1>
+      </div>
     </div>
-    <div id="medium-reminder">
+    <div id="graphs">
       <h2>Graphs</h2>
+      <div id="graph-container">
+        <canvas id="graph-chart"></canvas>
+      </div>
     </div>
   </div>
 `;

@@ -3,7 +3,7 @@ import express from "express";
 // Initialize the Express application
 const app = express();
 
-// Logging Middleware
+// Body-Parsing Middleware
 const logging = (request, response, next) => {
   console.log(
     `${request.method} ${request.url} ${new Date().toLocaleString("en-us")}`
