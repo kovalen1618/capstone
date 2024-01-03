@@ -4,15 +4,14 @@ export default () => html`
   <div id="home-wrapper">
     <div id="tasks">
       <h1>Tasks</h1>
-
       <div id="task-container">
         <canvas id="task-chart"></canvas>
       </div>
-
       <div id="task-details">
         <ul></ul>
       </div>
     </div>
+
     <div id="clocks">
       <h3>Clock</h3>
       <div id="clock-container">
@@ -21,6 +20,7 @@ export default () => html`
         </h1>
       </div>
     </div>
+
     <div id="graphs">
       <h2>Graphs</h2>
       <div id="graph-container">

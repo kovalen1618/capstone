@@ -73,7 +73,7 @@ body {
   background-color: #FFFFFF;
 }
 
-#sidebar>ul>li:first-child {
+#sidebar > ul > li:first-child {
   pointer-events: auto;
   background-color: #000;
 }
@@ -97,18 +97,19 @@ body {
   ;
 }
 
-.menu-link.active {
-  background-color: #FFFFFF;
-}
-
 .menu-link.active .fa-solid,
 .menu-link.active .menu-text {
-  color: #1F385C;
+  color: #000;
 }
 
 .menu-link:hover {
   background-color: #FFFFFF;
   left: 20%;
+}
+
+.menu-link.active {
+  background-color: #FFFFFF;
+  left: 0;
 }
 
 .menu-link:hover .fa-solid, .menu-link:hover .menu-text {
@@ -151,11 +152,11 @@ main {
 }
 
 #home-wrapper > div {
-  border: 3px solid white;
+  /* border: 3px solid white; */
   border-radius: 10px;
   /* background-color: #1F385C; */
-  padding: 5px;
-  margin: 50px;
+  padding: 0.5rem;
+  margin: 2.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;

@@ -110,9 +110,9 @@ const createChart = () => {
       ]
     },
     options: {
-      borderWidth: 10,
+      borderWidth: 0,
       borderRadius: 2,
-      hoverBorderWidth: 0,
+      hoverBorderWidth: 5,
       plugins: {
         legend: {
           display: false
