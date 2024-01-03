@@ -33,10 +33,11 @@ body {
   width: 12rem;
   /* Sets sidebar viewheight to 100% */
   height: 100vh;
-  background-color: #1F385C;
+  /* background-color: #1F385C; */
   padding: 30px 0;
   display: flex;
   flex-direction: column;
+  /* border-right: 3px solid #FFFFFF; */
 
   transition: left 600ms ease;
 }
@@ -59,30 +60,60 @@ body {
   transition: margin-left 600ms ease, transform 600ms ease;
 }
 
+#sidebar > ul > li {
+  pointer-events: none;
+  transition: background-color 0.3s ease-in;
+}
+
+#sidebar > ul > li:hover {
+  background-color: #FFFFFF;
+}
+
+#sidebar > ul > li.active {
+  background-color: #FFFFFF;
+}
+
+#sidebar > ul > li:first-child {
+  pointer-events: auto;
+  background-color: #000;
+}
+
 .menu-link {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 3rem;
-  /* Hover animation settings */
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
 
-.menu-link.active {
-  background-color: #FFFFFF;
+  background-color: #000;
+  color: #FFFFFF;
+  left: 0;
+  pointer-events: auto;
+  /* Hover animation settings */
+  transition:
+    background-color 0.3s ease-in,
+    color 0.3s ease-in,
+    left 0.3s ease-in
+  ;
 }
 
 .menu-link.active .fa-solid,
 .menu-link.active .menu-text {
-  color: #1F385C;
+  color: #000;
 }
 
 .menu-link:hover {
   background-color: #FFFFFF;
+  left: 20%;
+}
+
+.menu-link.active {
+  background-color: #FFFFFF;
+  left: 0;
 }
 
 .menu-link:hover .fa-solid, .menu-link:hover .menu-text {
-  color: #1F385C;
+  color: #000;
 }
 
 .menu-text {
@@ -108,36 +139,49 @@ main {
 }
 
 /* <main> Homepage Styles */
-#reminders-wrapper {
+#home-wrapper {
   height: 650px;
   width: 1200px;
   display: grid;
   /* Creating grid cells and filling them */
   grid-template-areas:
-    "large-reminder small-reminder small-reminder"
-    "large-reminder medium-reminder medium-reminder"
-    "large-reminder medium-reminder medium-reminder"
+    "tasks small-reminder small-reminder"
+    "tasks medium-reminder medium-reminder"
+    "tasks medium-reminder medium-reminder"
   ;
 }
 
-#reminders-wrapper > div {
-  border: 5px solid white;
-  border-radius: 30px;
-  background-color: #1F385C;
-  padding: 5px;
-  margin: 50px;
+#home-wrapper > div {
+  /* border: 3px solid white; */
+  border-radius: 10px;
+  /* background-color: #1F385C; */
+  padding: 0.5rem;
+  margin: 2.5rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#large-reminder {
-  grid-area: large-reminder;
+#tasks {
+  grid-area: tasks;
 }
 
-#medium-reminder {
+#task-container {
+  width: 15rem;
+  margin: 1rem 0;
+}
+
+#graph-container {
+  width: 30rem;
+  margin: 1rem 0;
+}
+
+#graphs {
   grid-area: medium-reminder;
 }
 
-#small-reminder {
+#clocks {
   grid-area: small-reminder;
 }
 
@@ -308,7 +352,7 @@ main {
     opacity: 25%;
   }
 
-  #reminders-wrapper {
+  #home-wrapper {
     height: 100vh;
     display: block;
   }

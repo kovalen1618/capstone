@@ -9,7 +9,8 @@ export default (links, state) => html`
       ${links
     .map(
       link =>
-        `<li><a class="${link.style} ${link.title === state.view ? "active" : " "
+        `<li class="${link.title === state.view ? "active" : " "
+        }"><a class="${link.style} ${link.title === state.view ? "active" : " "
         }" href="/${link.title}"
         title="${link.title}" data-navigo>${link.icon}${link.text}</a></li>`
     )
