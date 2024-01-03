@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "parcel-build": "parcel build index.html && cp _redirects ./dist/",
+    "parcel-build": "parcel build index.html && cp _redirects ./dist/ --no-scope-hoist",
     "serve": "parcel index.html",
     "app:watch": "nodemon --watch ./server -e js ./server/app.js"
   },
