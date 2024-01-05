@@ -140,8 +140,8 @@ main {
 
 /* <main> Homepage Styles */
 #home-wrapper {
-  height: 650px;
-  width: 1200px;
+  height: 40rem;
+  width: 60rem;
   display: grid;
   /* Creating grid cells and filling them */
   grid-template-areas:
@@ -155,8 +155,8 @@ main {
   /* border: 3px solid white; */
   border-radius: 10px;
   /* background-color: #1F385C; */
-  padding: 0.5rem;
-  margin: 2.5rem;
+  padding: 1rem;
+  /* margin: 1.5rem; */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -172,17 +172,28 @@ main {
   margin: 1rem 0;
 }
 
+#task-details {
+  height: 50%;
+  width: 15rem;
+  /* background-color: red; */
+}
+
 #graph-container {
-  width: 30rem;
-  margin: 1rem 0;
+  width: 25rem;
 }
 
 #graphs {
   grid-area: medium-reminder;
+  justify-content: center;
 }
 
 #clocks {
   grid-area: small-reminder;
+  justify-content: center;
+}
+
+#clock-container {
+  margin-top: 1rem;
 }
 
 /* <main> Create Task Styles */
