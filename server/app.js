@@ -29,6 +29,9 @@ db.once(
   console.log.bind(console, "Successfully opened connection to Mongo!")
 );
 
+// PORT variable
+const PORT = process.env.PORT || 4040;
+
 // CORS Middleware - allows any origin to access the server
 const cors = (req, res, next) => {
   res.setHeader(
@@ -68,4 +71,4 @@ app.get("/status", (request, response) => {
 app.use("/home", tasks);
 
 // Tell the Express app to start listening
-app.listen(4040, () => console.log("Listening on port 4040"));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
