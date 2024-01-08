@@ -1,7 +1,7 @@
 import html from "html-literal";
 
 export default () => html`
-  <form id="create-form">
+  <form id="create-form" method="POST">
     <!-- <header>
       <h1>Create a Task</h1>
     </header> -->
@@ -11,27 +11,27 @@ export default () => html`
       <input
         class="form-input"
         type="text"
-        name="task-title"
+        name="title"
         id="task-title"
         placeholder="Name of your task..."
       />
-      <label class="form-label" htmlFor="task-title">Title</label>
+      <label class="form-label" htmlFor="title">Title</label>
     </div>
 
     <!-- Used for giving certain attributes to certain tasks such as exercise sets, sleep health, etc. -->
     <div class="input-bar">
-      <select class="form-input" name="task-type" id="task-type">
+      <select class="form-input" name="type" id="task-type">
         <option value="Work">Work</option>
         <option value="Study">Study</option>
         <option value="Sleep">Sleep</option>
         <option value="Exercise">Exercise</option>
       </select>
-      <label class="form-label" htmlFor="task-type">Type (Optional)</label>
+      <label class="form-label" htmlFor="type">Type (Optional)</label>
     </div>
 
     <div class="input-bar">
-      <input class="form-input" type="time" name="task-time" id="task-time" />
-      <label class="form-label" htmlFor="task-time">Time</label>
+      <input class="form-input" type="number" name="time" id="task-time" />
+      <label class="form-label" htmlFor="time">Time</label>
     </div>
 
     <div class="input-bar">
@@ -39,11 +39,11 @@ export default () => html`
         class="form-textarea"
         cols="40"
         rows="6"
-        name="task-notes"
+        name="notes"
         id="task-notes"
         placeholder="Important items for your task..."
       ></textarea>
-      <label class="form-label" htmlFor="task-notes">Notes</label>
+      <label class="form-label" htmlFor="notes">Notes</label>
     </div>
 
     <button type="submit">Create Task</button>
