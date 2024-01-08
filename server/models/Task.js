@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["exercise", "work", "sleep", "study"]
+    enum: ["Exercise", "Work", "sleep", "Study"]
   },
   time: {
     type: Number,
