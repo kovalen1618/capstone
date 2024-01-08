@@ -240,7 +240,23 @@ main {
   border-color: #3F7859;
 }
 
+#create-form>button {
+  background-color: black;
+  color: white;
+  outline: none;
+  border: 2px solid white;
+  cursor: pointer;
+  position: relative;
+  top: 5.5rem;
+  transition: all 0.1s ease-in;
+}
 
+
+
+#create-form>button:hover {
+  background-color: white;
+  color: black
+}
 
 .form-label {
   position: absolute;

@@ -11,30 +11,31 @@ const router = new Navigo("/");
 
 function render(state = store.Home) {
   document.querySelector("#root").innerHTML = `
-    ${components.Nav(store.Links, state)}
-    ${components.Main(state)}
-  `;
+      ${components.Nav(store.Links, state)}
+      ${components.Main(state)}
+    `;
   router.updatePageLinks();
   afterRender(state);
 }
 
 // ChartJS
-const createChart = () => {
+const createChart = state => {
+  const labels = [];
+  const data = [];
+
+  for (let task of state.tasks) {
+    labels.push(task.title);
+
+    // Accepts seconds input and calculates out 86400s day
+    data.push(Math.round((task.time / 86400) * 100));
+  }
+
   // ? When database is implemented, be sure to find a way to populated chartData with data from MongoDB
   // Tasks Chart
   const chartData = {
-    labels: [
-      "Sleep",
-      "Exercise: Run",
-      "Rest",
-      "Work: Coding",
-      "Rest",
-      "School",
-      "Study: Coding",
-      "Gaming",
-      "Rest"
-    ],
-    data: [33, 5, 5, 15, 5, 18, 10, 5, 4]
+    labels: labels,
+
+    data: data
   };
 
   const taskChart = document.querySelector("#task-chart");
@@ -63,33 +64,24 @@ const createChart = () => {
     }
   });
 
-  // const populateUl = () => {
-  //   chartData.labels.forEach((l, i) => {
-  //     let li = document.createElement("li");
-  //     li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
-  //     ul.appendChild(li);
-  //   });
-  // };
+  const populateUl = () => {
+    chartData.labels.forEach((l, i) => {
+      let li = document.createElement("li");
+      li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
+      ul.appendChild(li);
+    });
+  };
 
-  // populateUl();
+  populateUl();
 
   // Graphs Chart
   const graphData = {
-    labels: [
-      "Sleep",
-      "Exercise: Run",
-      "Rest",
-      "Work: Coding",
-      "Rest",
-      "School",
-      "Study: Coding",
-      "Gaming",
-      "Rest"
-    ],
+    labels: labels,
     datasets: [
       {
+        // Have the dataset label represent the current week
         label: "Jan 1st - Jan 7th",
-        data: [33, 5, 5, 15, 5, 18, 10, 5, 4],
+        data: data,
         fill: true,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgb(75, 192, 192)",
@@ -158,7 +150,32 @@ function afterRender(state) {
   }
 
   if (state.view === "Home") {
-    createChart();
+    createChart(state);
+  }
+
+  if (state.view === "Create") {
+    document.getElementById("create-form").addEventListener("submit", e => {
+      e.preventDefault();
+
+      const inputList = e.target.elements;
+      console.log("Input Element List", inputList);
+
+      const requestData = {
+        title: inputList.title.value,
+        type: inputList.type.value,
+        time: inputList.time.value,
+        notes: inputList.notes.value
+      };
+      axios
+        .post(`${process.env.TASKS_API_URL}/home`, requestData)
+        .then(response => {
+          store.Home.tasks.push(response.data);
+          router.navigate("/Home");
+        })
+        .catch(error => {
+          console.log("It puked", error);
+        });
+    });
   }
 }
 
@@ -171,6 +188,19 @@ router.hooks({
         : "Home";
     // Add a switch case statement to handle multiple routes
     switch (view) {
+      case "Home":
+        axios
+          .get(`${process.env.TASKS_API_URL}/home`)
+          .then(response => {
+            console.log("response", response);
+            store.Home.tasks = response.data;
+            done();
+          })
+          .catch(err => {
+            console.log(err);
+            done();
+          });
+        break;
       // Load on Create page to choose exercises
       case "Create":
         axios
@@ -196,7 +226,6 @@ router.hooks({
       params && params.data && params.data.view
         ? capitalize(params.data.view)
         : "Home";
-
     render(store[view]);
   }
 });
