@@ -21,10 +21,11 @@ export default () => html`
     <!-- Used for giving certain attributes to certain tasks such as exercise sets, sleep health, etc. -->
     <div class="input-bar">
       <select class="form-input" name="type" id="task-type">
-        <option value="Work">Work</option>
-        <option value="Study">Study</option>
-        <option value="Sleep">Sleep</option>
         <option value="Exercise">Exercise</option>
+        <option value="Other">Other</option>
+        <option value="Sleep">Sleep</option>
+        <option value="Study">Study</option>
+        <option value="Work">Work</option>
       </select>
       <label class="form-label" htmlFor="type">Type (Optional)</label>
     </div>

@@ -1,5 +1,5 @@
 import Navigo from "navigo";
-import { capitalize } from "lodash";
+import { capitalize, forEach } from "lodash";
 import axios from "axios";
 
 import * as components from "./components";
@@ -117,14 +117,79 @@ const createChart = state => {
     }
   });
 
-  // Graphs Chart
+  const typeTimeArray = [];
+
+  for (let i = 0; i < chartData.times.length; i++) {
+    typeTimeArray.push({
+      type: chartData.types[i],
+      time: chartData.times[i]
+    });
+  }
+
+  const timeSumsArray = Array.from(
+    typeTimeArray.reduce(
+      (map, { type, time }) => map.set(type, (map.get(type) || 0) + time),
+      new Map()
+    ),
+    ([type, time]) => ({ type, time })
+  );
+
+  const dataTypes = ["Exercise", "Other", "Sleep", "Study", "Work"];
+  const dataTimes = [];
+
+  const sortGraphData = (data, times) => {
+    // Sort times array of objects based on object.type
+    times.sort(function (a, b) {
+      const typeA = a.type.toUpperCase();
+      const typeB = b.type.toUpperCase();
+
+      if (typeA < typeB) {
+        return -1;
+      }
+
+      if (typeA > typeB) {
+        return 1;
+      }
+
+      return 0;
+    });
+
+    // Loop through data array, checking if times array of objects includes
+    // matching object.type at same index || add zero if not found
+    for (let i = 0; i < data.length; i++) {
+      switch (times.map(e => e.type).indexOf(data[i])) {
+        case -1:
+          dataTimes.push(0);
+          break;
+        case 0:
+          dataTimes.push(times[0].time);
+          times.shift();
+          break;
+        case 1:
+          dataTimes.push(times[0].time);
+          times.shift();
+          break;
+        case 2:
+          dataTimes.push(times[0].time);
+          times.shift();
+          break;
+        case 3:
+          dataTimes.push(times[0].time);
+          times.shift();
+          break;
+      }
+    }
+  };
+
+  sortGraphData(dataTypes, timeSumsArray);
+
   const graphData = {
-    labels: chartData.titles,
+    labels: dataTypes,
     datasets: [
       {
         // Have the dataset label represent the current week
         label: "Jan 1st - Jan 7th",
-        data: chartData.times,
+        data: dataTimes,
         fill: true,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgb(75, 192, 192)",
@@ -133,9 +198,15 @@ const createChart = state => {
         pointHoverBackgroundColor: "#fff",
         pointHoverBorderColor: "rgb(75, 192, 192)"
       }
-    ]
+    ],
+    options: {
+      parsing: {
+        key: "time"
+      }
+    }
   };
 
+  // Graphs Chart
   const graphChart = document.querySelector("#graph-chart");
 
   new Chart(graphChart, {
