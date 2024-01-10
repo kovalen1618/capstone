@@ -1,5 +1,7 @@
 export default {
   header: "Home Page",
   view: "Home",
-  tasks: []
+  tasks: [
+    // Place fake object (dummy data) here
+  ]
 };

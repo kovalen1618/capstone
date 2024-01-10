@@ -7,9 +7,7 @@ export default () => html`
       <div id="task-container">
         <canvas id="task-chart"></canvas>
       </div>
-      <div id="task-details">
-        <ul></ul>
-      </div>
+      <div id="task-details"></div>
     </div>
 
     <div id="clocks">

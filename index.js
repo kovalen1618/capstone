@@ -20,35 +20,41 @@ function render(state = store.Home) {
 
 // ChartJS
 const createChart = state => {
-  const labels = [];
-  const data = [];
+  const titles = [];
+  const times = [];
+  const types = [];
+  const notes = [];
 
   for (let task of state.tasks) {
-    labels.push(task.title);
-
-    // Accepts seconds input and calculates out 86400s day
-    data.push(Math.round((task.time / 86400) * 100));
+    titles.push(task.title);
+    types.push(task.type);
+    // Accepts seconds input and calculates out of an 86400s day
+    times.push(Math.round((task.time / 86400) * 100));
+    notes.push(task.notes);
   }
 
-  // ? When database is implemented, be sure to find a way to populated chartData with data from MongoDB
   // Tasks Chart
   const chartData = {
-    labels: labels,
-
-    data: data
+    titles,
+    types,
+    times,
+    notes
   };
 
   const taskChart = document.querySelector("#task-chart");
-  const ul = document.querySelector("#task-details ul");
+  const taskDetails = document.querySelector("#task-details");
 
-  new Chart(taskChart, {
+  const doughnutChart = new Chart(taskChart, {
     type: "doughnut",
     data: {
-      labels: chartData.labels,
+      labels: {
+        title: chartData.titles,
+        type: chartData.types,
+        notes: chartData.notes
+      },
       datasets: [
         {
-          label: "Tasks",
-          data: chartData.data
+          data: chartData.times
         }
       ]
     },
@@ -64,24 +70,61 @@ const createChart = state => {
     }
   });
 
-  const populateUl = () => {
-    chartData.labels.forEach((l, i) => {
-      let li = document.createElement("li");
-      li.innerHTML = `${l}: <span class='percentage'>${chartData.data[i]}%</span>`;
-      ul.appendChild(li);
-    });
+  const displayTaskDetails = (title, type, percentage, notes) => {
+    const time = (percentage / 100) * 24;
+
+    let h3 = document.createElement("h3");
+    h3.textContent = title;
+    let h4 = document.createElement("h4");
+    h4.textContent = type;
+    let h5 = document.createElement("h5");
+    h5.textContent = time;
+    let p = document.createElement("p");
+    p.textContent = notes;
+
+    taskDetails.appendChild(h3);
+    taskDetails.appendChild(h4);
+    taskDetails.appendChild(h5);
+    taskDetails.appendChild(p);
   };
 
-  populateUl();
+  // Event listener to look for a click event on the #task-chart canvas
+  taskChart.addEventListener("click", e => {
+    // Check coordinates on canvas to see which arc of the doughnut chart
+    // is being selected and then add that coordinate point to an array
+    const points = doughnutChart.getElementsAtEventForMode(
+      e,
+      "nearest",
+      { intersect: true },
+      true
+    );
+
+    // If a coordinate has been chosen, then it will be in the points array
+    // and allows for some functionality to occur after the 'click' event
+    if (points.length) {
+      const firstPoint = points[0];
+      const title = doughnutChart.data.labels.title[firstPoint.index];
+      const type = doughnutChart.data.labels.type[firstPoint.index];
+      const percentage =
+        doughnutChart.data.datasets[firstPoint.datasetIndex].data[
+        firstPoint.index
+        ];
+      const notes = doughnutChart.data.labels.notes[firstPoint.index];
+      // Remove contents of task-details to avoid stacking
+      taskDetails.textContent = "";
+      // Display task info under #task-chart
+      displayTaskDetails(title, type, percentage, notes);
+    }
+  });
 
   // Graphs Chart
   const graphData = {
-    labels: labels,
+    labels: chartData.titles,
     datasets: [
       {
         // Have the dataset label represent the current week
         label: "Jan 1st - Jan 7th",
-        data: data,
+        data: chartData.times,
         fill: true,
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgb(75, 192, 192)",
