@@ -1,10 +1,10 @@
 import html from "html-literal";
 
 export default () => html`
-  <form id="create-form" method="POST">
-    <!-- <header>
+  <form class="form-wrapper" id="create-form" method="POST">
+    <header>
       <h1>Create a Task</h1>
-    </header> -->
+    </header>
     <!-- Labels use htmlFor instead of for because this is JSX, not HTML -->
     <!-- ids in inputs must match the htmlFor in their corresponding labels -->
     <div class="input-bar">
@@ -21,6 +21,9 @@ export default () => html`
     <!-- Used for giving certain attributes to certain tasks such as exercise sets, sleep health, etc. -->
     <div class="input-bar">
       <select class="form-input" name="type" id="task-type">
+        <option id="empty-option" disabled selected value>
+          What kind of task?
+        </option>
         <option value="Exercise">Exercise</option>
         <option value="Other">Other</option>
         <option value="Sleep">Sleep</option>
@@ -41,12 +44,11 @@ export default () => html`
         cols="40"
         rows="6"
         name="notes"
-        id="task-notes"
         placeholder="Important items for your task..."
       ></textarea>
       <label class="form-label" htmlFor="notes">Notes</label>
     </div>
 
-    <button type="submit">Create Task</button>
+    <button class="form-button" type="submit">Create Task</button>
   </form>
 `;
