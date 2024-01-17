@@ -145,7 +145,7 @@ const createChart = state => {
       taskOptions.classList.add("active");
 
       deleteButton.addEventListener("click", e => {
-        e.preventDefault();
+        // e.preventDefault();
 
         const postIdToDelete = state.tasks[firstPoint.index]._id;
 
@@ -154,13 +154,13 @@ const createChart = state => {
           .then(response => {
             console.log(`Deleted post with ID ${postIdToDelete}`);
             console.log(response);
+            // Reload page on delete to get latest data from server
+            location.reload();
           })
           .catch(error => {
             console.error(error);
           });
       });
-
-      doughnutChart.update();
     }
   });
 
