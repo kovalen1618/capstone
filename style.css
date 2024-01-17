@@ -33,11 +33,11 @@ body {
   width: 12rem;
   /* Sets sidebar viewheight to 100% */
   height: 100vh;
-  /* background-color: #1F385C; */
+  background-color: #000;
   padding: 30px 0;
   display: flex;
   flex-direction: column;
-  /* border-right: 3px solid #FFFFFF; */
+  z-index: 1;
 
   transition: left 600ms ease;
 }
@@ -172,10 +172,19 @@ main {
   margin: 1rem 0;
 }
 
-#task-details {
+#task-view {
   height: 50%;
   width: 15rem;
-  /* background-color: red; */
+}
+
+/* #task-details */
+
+#task-options {
+  display: none;
+}
+
+#task-options.active {
+  display: flex;
 }
 
 #graph-container {
@@ -197,9 +206,13 @@ main {
 }
 
 /* <main> Create Task Styles */
+.form-wrapper > header {
+  margin-bottom: 1.5rem;
+}
+
 .input-bar {
   position: relative;
-  width: 20rem;
+  width: 24rem;
   height: 3rem;
   margin: 0 0 2rem 0;
 }
@@ -207,16 +220,48 @@ main {
 .form-input {
   font-size: inherit;
   position: absolute;
-  width: 15rem;
+  width: 11rem;
   height: 3rem;
   top: 0;
   left: 0;
   padding: 0 1rem;
-  border-radius: 12.5px;
   outline: none;
   border: 2px solid white;
   background-color: black;
   transition: all 160ms ease-in;
+}
+
+.type-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 24rem;
+}
+
+/* Have the first disabled option not display */
+#empty-option {
+  display: none;
+}
+
+#exercise-input {
+  display: none;
+}
+
+#exercise-input.active {
+  display: flex;
+}
+
+#color-input {
+  left: 3rem;
+}
+
+#task-color {
+  border: none;
+  width: 5rem;
+}
+
+#color-input > label {
+  left: -2rem;
+  top: 1rem;
 }
 
 .form-textarea {
@@ -224,38 +269,15 @@ main {
   position: absolute;
   color: white;
   padding: 1rem;
-  border-radius: 12.5px;
-  top: -0.5rem;
+  top: -0.1rem;
   outline: none;
   border: 2px solid white;
   background-color: black;
   transition: all 160ms ease-in;
 }
 
-.form-input:hover {
-
-}
-
 .form-input:focus, .form-textarea:focus {
   border-color: #3F7859;
-}
-
-#create-form>button {
-  background-color: black;
-  color: white;
-  outline: none;
-  border: 2px solid white;
-  cursor: pointer;
-  position: relative;
-  top: 5.5rem;
-  transition: all 0.1s ease-in;
-}
-
-
-
-#create-form>button:hover {
-  background-color: white;
-  color: black
 }
 
 .form-label {
@@ -268,64 +290,66 @@ main {
   background-color: black;
 }
 
-/* <main> About Styles */
-#about-wrapper, #badges-wrapper, #settings-wrapper, #create-wrapper {
-  width: 35rem;
-  background-color: #1F385C;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.form-button {
+  font-size: inherit;
+  font-family: inherit;
+
+  background-color: black;
+  color: white;
+  outline: none;
+  border: 2px solid white;
+  padding: 0.5rem;
   border-radius: 1rem;
+
+  cursor: pointer;
+  position: relative;
+  top: 5.5rem;
+  transition: all 0.1s ease-in;
+}
+
+.form-button:hover {
+  background-color: white;
+  color: black
+}
+
+/* <main> About Styles */
+#about-wrapper {
+  width: 45rem;
+  height: 35rem;
+  padding: 1rem;
+  font-size: 1.25rem;
+  overflow: scroll;
+}
+
+#about-wrapper::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+#about-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgb(255, 255, 255);
+  background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
+  border-radius: 50%;
+}
+
+#about-wrapper::-webkit-scrollbar {
+
+}
+
+#about-wrapper {
+  overflow-x: hidden;
+}
+
+#about-wrapper > h1 {
+  border-bottom: 3px solid white;
+}
+
+#about-wrapper > p {
+  text-align: justify;
+  margin: 1rem 0;
 }
 
 /* <main> Contact Styles */
-#contact-form {
-  width: 35rem;
-  background-color: #1F385C;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-  position: relative;
-  border: 5px solid #FFFFFF;
-  z-index: 2;
-}
 
-#contact-form > header {
-  margin-bottom: 25px;
-}
-
-#contact-form > header > h1 {
-  font-size: 2rem;
-  margin-bottom: 0;
-}
-
-#contact-form > input, textarea, button {
-  color: black;
-  margin: 10px 0;
-  font-size: 20px;
-  border-radius: 10px;
-  padding: 10px;
-}
-
-#contact-form > input {
-  width: 70%;
-}
-
-#contact-form > button {
-  margin: 25px 0;
-  width: 35%;
-  align-self: center;
-  border: 3px solid #FFFFFF;
-  background-color: #FFFFFF;
-  transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-}
-
-#contact-form > button:hover {
-  background-color: #3F7859;
-  color: #FFFFFF;
-}
 
 /* Media Queries */
 /* Took me 30 min to figure out I was missing a colon between width and 500px to explain it not working */
@@ -335,7 +359,7 @@ main {
     left: -100%;
     width: 8rem;
     height: 100vh;
-    background-color: #1F385C;
+    background-color: #000;
     z-index: 1;
   }
 
@@ -401,7 +425,7 @@ main {
     width: 15rem;
   }
 
-  #contact-form > button {
+  .form-button {
     width: 70%;
   }
 }

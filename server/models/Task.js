@@ -9,16 +9,20 @@ const taskSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["Exercise", "Work", "sleep", "Study"]
+    required: true,
+    enum: ["Exercise", "Other", "Sleep", "Study", "Work"]
+  },
+  exercise: {
+    type: String
   },
   time: {
     type: Number,
     required: true
   },
-  color: {
+  notes: {
     type: String
   },
-  notes: {
+  color: {
     type: String
   }
 });

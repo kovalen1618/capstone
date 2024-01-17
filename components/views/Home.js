@@ -7,8 +7,14 @@ export default () => html`
       <div id="task-container">
         <canvas id="task-chart"></canvas>
       </div>
-      <div id="task-details">
-        <ul></ul>
+      <div id="task-view">
+        <div id="task-details">
+          <!-- Populated info goes here -->
+        </div>
+        <div id="task-options">
+          <i id="edit-button" class="fa-solid fa-pencil"></i>
+          <i id="delete-button" class="fa-solid fa-x"></i>
+        </div>
       </div>
     </div>
 
