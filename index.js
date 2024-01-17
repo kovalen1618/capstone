@@ -34,7 +34,7 @@ const createChart = state => {
     types.push(task.type);
     exercises.push(task.exercise);
     // Accepts seconds input and calculates out of an 86400s day
-    times.push(Math.round((task.time / 86400) * 100));
+    times.push(Math.round((task.time / 86400) * 1000));
     notes.push(task.notes);
     colors.push(task.color);
   }
@@ -65,18 +65,16 @@ const createChart = state => {
   const doughnutChart = new Chart(taskChart, {
     type: "doughnut",
     data: {
-      labels: {
-        title: chartData.titles,
-        type: chartData.types,
-        exercise: chartData.exercises,
-        notes: chartData.notes
-      },
+      labels: chartData.titles,
       datasets: [
         {
           data: chartData.times,
           backgroundColor: chartData.colors
         }
-      ]
+      ],
+      type: chartData.types,
+      exercise: chartData.exercises,
+      notes: chartData.notes
     },
     options: {
       borderWidth: 0,
@@ -129,14 +127,14 @@ const createChart = state => {
     // and allows for some functionality to occur after the 'click' event
     if (points.length) {
       const firstPoint = points[0];
-      const title = doughnutChart.data.labels.title[firstPoint.index];
-      const type = doughnutChart.data.labels.type[firstPoint.index];
-      const exercise = doughnutChart.data.labels.exercise[firstPoint.index];
+      const title = doughnutChart.data.labels[firstPoint.index];
+      const type = doughnutChart.data.type[firstPoint.index];
+      const exercise = doughnutChart.data.exercise[firstPoint.index];
       const percentage =
         doughnutChart.data.datasets[firstPoint.datasetIndex].data[
         firstPoint.index
         ];
-      const notes = doughnutChart.data.labels.notes[firstPoint.index];
+      const notes = doughnutChart.data.notes[firstPoint.index];
       // Remove contents of task-details to avoid stacking
       taskDetails.textContent = "";
       // Display task info under #task-chart
