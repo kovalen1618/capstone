@@ -1,5 +1,5 @@
 import Navigo from "navigo";
-import { capitalize, forEach } from "lodash";
+import { capitalize } from "lodash";
 import axios from "axios";
 
 import * as components from "./components";
@@ -20,41 +20,61 @@ function render(state = store.Home) {
 
 // ChartJS
 const createChart = state => {
+  // Initialize empty arrays to store each parts of tasks to be displayed in charts
   const titles = [];
-  const times = [];
   const types = [];
+  const exercises = [];
+  const times = [];
   const notes = [];
+  const colors = [];
 
+  // Push each part of task objects into respective data
   for (let task of state.tasks) {
     titles.push(task.title);
     types.push(task.type);
+    exercises.push(task.exercise);
     // Accepts seconds input and calculates out of an 86400s day
     times.push(Math.round((task.time / 86400) * 100));
     notes.push(task.notes);
+    colors.push(task.color);
   }
 
-  // Tasks Chart
+  // Chart Data
   const chartData = {
     titles,
     types,
+    exercises,
     times,
-    notes
+    notes,
+    colors
   };
 
+  // Testing
+  console.log("Titles: ", titles);
+  console.log("Types: ", types);
+  console.log("Exercises: ", exercises);
+  console.log("Times: ", times);
+  console.log("Notes: ", notes);
+  console.log("Colors: ", colors);
+
+  // Selecting canvas element from DOM
   const taskChart = document.querySelector("#task-chart");
   const taskDetails = document.querySelector("#task-details");
 
+  // Circle dougnut chart
   const doughnutChart = new Chart(taskChart, {
     type: "doughnut",
     data: {
       labels: {
         title: chartData.titles,
         type: chartData.types,
+        exercise: chartData.exercises,
         notes: chartData.notes
       },
       datasets: [
         {
-          data: chartData.times
+          data: chartData.times,
+          backgroundColor: chartData.colors
         }
       ]
     },
@@ -70,20 +90,23 @@ const createChart = state => {
     }
   });
 
-  const displayTaskDetails = (title, type, percentage, notes) => {
+  const displayTaskDetails = (title, type, exercise, percentage, notes) => {
     const time = (percentage / 100) * 24;
 
+    let h2 = document.createElement("h2");
+    h2.textContent = title;
     let h3 = document.createElement("h3");
-    h3.textContent = title;
+    h3.textContent = type;
     let h4 = document.createElement("h4");
-    h4.textContent = type;
+    h4.textContent = exercise;
     let h5 = document.createElement("h5");
     h5.textContent = time;
     let p = document.createElement("p");
     p.textContent = notes;
 
+    taskDetails.appendChild(h2);
     taskDetails.appendChild(h3);
-    taskDetails.appendChild(h4);
+    if (exercise) taskDetails.appendChild(h4);
     taskDetails.appendChild(h5);
     taskDetails.appendChild(p);
   };
@@ -99,12 +122,16 @@ const createChart = state => {
       true
     );
 
+    const taskOptions = document.getElementById("task-options");
+    const deleteButton = document.getElementById("delete-button");
+
     // If a coordinate has been chosen, then it will be in the points array
     // and allows for some functionality to occur after the 'click' event
     if (points.length) {
       const firstPoint = points[0];
       const title = doughnutChart.data.labels.title[firstPoint.index];
       const type = doughnutChart.data.labels.type[firstPoint.index];
+      const exercise = doughnutChart.data.labels.exercise[firstPoint.index];
       const percentage =
         doughnutChart.data.datasets[firstPoint.datasetIndex].data[
         firstPoint.index
@@ -113,7 +140,27 @@ const createChart = state => {
       // Remove contents of task-details to avoid stacking
       taskDetails.textContent = "";
       // Display task info under #task-chart
-      displayTaskDetails(title, type, percentage, notes);
+      displayTaskDetails(title, type, exercise, percentage, notes);
+      // Display task options
+      taskOptions.classList.add("active");
+
+      deleteButton.addEventListener("click", e => {
+        e.preventDefault();
+
+        const postIdToDelete = state.tasks[firstPoint.index]._id;
+
+        axios
+          .delete(`${process.env.TASKS_API_URL}/home/${postIdToDelete}`)
+          .then(response => {
+            console.log(`Deleted post with ID ${postIdToDelete}`);
+            console.log(response);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      });
+
+      doughnutChart.update();
     }
   });
 
@@ -247,6 +294,7 @@ const createChart = state => {
 
 // DOM Manipulation of view constant sidebar during mobile display
 function afterRender(state) {
+  // Mobile Sidebar
   const sidebar = document.getElementById("sidebar");
   const chevron = document.getElementById("chevron");
   const main = document.querySelector("main");
@@ -263,22 +311,47 @@ function afterRender(state) {
     main.classList.toggle("active");
   }
 
+  // Create Charts on Home View
   if (state.view === "Home") {
     createChart(state);
   }
 
+  // Create View
   if (state.view === "Create") {
-    document.getElementById("create-form").addEventListener("submit", e => {
+    // Alter form based on type
+    const createForm = document.getElementById("create-form");
+    const typeInput = document.getElementById("type-input");
+
+    typeInput.addEventListener("input", e => {
+      e.preventDefault();
+
+      const exerciseInput = document.getElementById("exercise-input");
+
+      if (typeInput.value === "Exercise") {
+        exerciseInput.classList.add("active");
+      }
+
+      if (typeInput.value !== "Exercise") {
+        exerciseInput.classList.remove("active");
+      }
+    });
+
+    // Send POST request on "submit" form event
+    createForm.addEventListener("submit", e => {
       e.preventDefault();
 
       const inputList = e.target.elements;
       console.log("Input Element List", inputList);
 
+      console.log("Colors: ", inputList.color.value);
+
       const requestData = {
         title: inputList.title.value,
         type: inputList.type.value,
+        exercise: inputList.exercise.value,
         time: inputList.time.value,
-        notes: inputList.notes.value
+        notes: inputList.notes.value,
+        color: inputList.color.value
       };
       axios
         .post(`${process.env.TASKS_API_URL}/home`, requestData)
@@ -319,7 +392,7 @@ router.hooks({
       case "Create":
         axios
           .get(
-            `https://wger.de/api/v2/exercise?appid=${process.env.WGER_API_KEY}`
+            `https://wger.de/api/v2/exercise/?language=2&appid=${process.env.WGER_API_KEY}`
           )
           .then(response => {
             console.log("response", response);
