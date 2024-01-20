@@ -58,6 +58,7 @@ export default state => html`
     </div>
 
     <div class="type-wrapper">
+      <!-- TODO: Create responsive time input like that of many Phone applications -->
       <div class="input-bar">
         <input
           class="form-input"
@@ -66,8 +67,9 @@ export default state => html`
           id="task-time"
           required
         />
-        <label class="form-label" htmlFor="time">Time</label>
+        <label class="form-label" htmlFor="time">Time (Minutes)</label>
       </div>
+
       <div class="input-bar" id="color-input">
         <input
           class="form-input"

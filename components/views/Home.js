@@ -21,8 +21,16 @@ export default () => html`
     <div id="clocks">
       <h3>Timer</h3>
       <div id="clock-container">
+        <!-- <button id="play"></button> -->
         <h1 id="clock">
-          00:24:12
+          <span id="hours-10">0</span>
+          <span id="hours-1">0</span>
+          :
+          <span id="minutes-10">0</span>
+          <span id="minutes-1">0</span>
+          :
+          <span id="seconds-10">0</span>
+          <span id="seconds-1">0</span>
         </h1>
       </div>
     </div>
