@@ -36,7 +36,7 @@ export default () => html`
     </div>
 
     <div id="graphs">
-      <h3>Jan 1st - Jan 7th</h3>
+      <!-- <h3>Jan 1st - Jan 7th</h3> -->
       <div id="graph-container">
         <canvas id="graph-chart"></canvas>
       </div>
