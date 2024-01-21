@@ -15,9 +15,9 @@
   /* Remove all underlines from hyperlinks and all bullet points from lists */
   text-decoration: none;
   list-style: none;
+  /* color: #fff; */
   /* Makes sure that any padding or border are accounted for in an element's width or height */
   box-sizing: border-box;
-
   font-family: 'Roboto', sans-serif;
 }
 
@@ -258,6 +258,10 @@ main {
   display: none;
 }
 
+.form-input {
+  color: #fff;
+}
+
 #exercise-input {
   display: none;
 }
@@ -450,6 +454,8 @@ main {
   /* <main> Styles */
   main {
     margin-left: 0;
+    align-items: normal;
+    height: 0;
   }
 
   main.active {
@@ -457,28 +463,47 @@ main {
   }
 
   #home-wrapper {
-    height: 100vh;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
   }
 
-  #large-reminder {
-    height: 70vh;
+  #task-view {
+    height: 25vh;
   }
 
-  #medium-reminder {
-    height: 60vh;
-    margin-bottom: 10rem;
+  #clocks {
+    margin-bottom: 5rem;
   }
 
-  #small-reminder {
-    height: 15vh;
+  #graph-container {
+    width: 20rem;
   }
 
-  #contact-form {
-    width: 15rem;
+  .form-wrapper {
+    width: 20rem;
+    position: relative;
+    left: 0.5rem;
+    margin-top: 8rem;
+  }
+
+  .type-wrapper {
+    width: 20rem;
+  }
+
+  .form-input {
+    width: 9.5rem;
+  }
+
+  .form-textarea {
+    width: 19rem;
+  }
+
+  .form-input, .form-textarea {
+    font-size: 0.8rem;
   }
 
   .form-button {
-    width: 70%;
+    left: 6.75rem;
   }
 }
