@@ -15,15 +15,16 @@
   /* Remove all underlines from hyperlinks and all bullet points from lists */
   text-decoration: none;
   list-style: none;
-  color: #FFFFFF;
+  /* color: #fff; */
   /* Makes sure that any padding or border are accounted for in an element's width or height */
   box-sizing: border-box;
-
   font-family: 'Roboto', sans-serif;
 }
 
 body {
   background-color: black;
+  color: #fff;
+  transition: 0.3s all ease-in;
 }
 
 /* Sidbar Styles */
@@ -177,10 +178,24 @@ main {
   width: 15rem;
 }
 
-/* #task-details */
+#task-details {
+  display: flex;
+  flex-direction: column;
+}
 
 #task-options {
   display: none;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+#task-options > .fa-solid {
+  width: 3rem;
+  justify-content: space-evenly;
+}
+
+#delete-button {
+  color: red;
 }
 
 #task-options.active {
@@ -203,6 +218,7 @@ main {
 
 #clock-container {
   margin-top: 1rem;
+  position: relative;
 }
 
 /* <main> Create Task Styles */
@@ -240,6 +256,10 @@ main {
 /* Have the first disabled option not display */
 #empty-option {
   display: none;
+}
+
+.form-input {
+  color: #fff;
 }
 
 #exercise-input {
@@ -331,10 +351,6 @@ main {
   border-radius: 50%;
 }
 
-#about-wrapper::-webkit-scrollbar {
-
-}
-
 #about-wrapper {
   overflow-x: hidden;
 }
@@ -348,11 +364,52 @@ main {
   margin: 1rem 0;
 }
 
-/* <main> Contact Styles */
+/* <main> Settings Styles */
+#toggle-label {
+  width: 11rem;
+  height: 2rem;
+  position: relative;
+  display: block;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 -5px 15px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
 
+#toggle-label:after {
+  content: "";
+  width: 2.7rem;
+  height: 1.7rem;
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  background: #000;
+  border-radius: 1.8rem;
+  transition: 0.3s;
+}
+
+#theme-toggle {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#theme-toggle:checked + #toggle-label {
+  background: #000;
+}
+
+#theme-toggle:checked + #toggle-label:after {
+  left: 10.9rem;
+  transform: translateX(-100%);
+  background: #fff;
+}
+
+#toggle-label:active:after {
+  width: 3.4rem;
+}
 
 /* Media Queries */
-/* Took me 30 min to figure out I was missing a colon between width and 500px to explain it not working */
 @media (max-width: 500px) {
   /* Sidebar Styles */
   #sidebar {
@@ -397,6 +454,8 @@ main {
   /* <main> Styles */
   main {
     margin-left: 0;
+    align-items: normal;
+    height: 0;
   }
 
   main.active {
@@ -404,28 +463,47 @@ main {
   }
 
   #home-wrapper {
-    height: 100vh;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
   }
 
-  #large-reminder {
-    height: 70vh;
+  #task-view {
+    height: 25vh;
   }
 
-  #medium-reminder {
-    height: 60vh;
-    margin-bottom: 10rem;
+  #clocks {
+    margin-bottom: 5rem;
   }
 
-  #small-reminder {
-    height: 15vh;
+  #graph-container {
+    width: 20rem;
   }
 
-  #contact-form {
-    width: 15rem;
+  .form-wrapper {
+    width: 20rem;
+    position: relative;
+    left: 0.5rem;
+    margin-top: 8rem;
+  }
+
+  .type-wrapper {
+    width: 20rem;
+  }
+
+  .form-input {
+    width: 9.5rem;
+  }
+
+  .form-textarea {
+    width: 19rem;
+  }
+
+  .form-input, .form-textarea {
+    font-size: 0.8rem;
   }
 
   .form-button {
-    width: 70%;
+    left: 6.75rem;
   }
 }

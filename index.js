@@ -19,7 +19,7 @@ function render(state = store.Home) {
 }
 
 // ChartJS
-const createChart = state => {
+const createHome = state => {
   // Initialize empty arrays to store each parts of tasks to be displayed in charts
   const titles = [];
   const types = [];
@@ -27,17 +27,24 @@ const createChart = state => {
   const times = [];
   const notes = [];
   const colors = [];
+  const percentages = [];
 
   // Push each part of task objects into respective data
   for (let task of state.tasks) {
     titles.push(task.title);
     types.push(task.type);
     exercises.push(task.exercise);
-    // Accepts seconds input and calculates out of an 86400s day
-    times.push(Math.round((task.time / 86400) * 100));
+    // Accepts minutes input and calculates into seconds
+    times.push(task.time * 60);
     notes.push(task.notes);
     colors.push(task.color);
   }
+
+  // Percentages of each arc based on task time within a full 24-hour day
+  times.map(time => {
+    // 24 hours = 86400 seconds
+    percentages.push(Math.round((time / 86400) * 1000) / 10);
+  });
 
   // Chart Data
   const chartData = {
@@ -46,7 +53,8 @@ const createChart = state => {
     exercises,
     times,
     notes,
-    colors
+    colors,
+    percentages
   };
 
   // Testing
@@ -65,18 +73,17 @@ const createChart = state => {
   const doughnutChart = new Chart(taskChart, {
     type: "doughnut",
     data: {
-      labels: {
-        title: chartData.titles,
-        type: chartData.types,
-        exercise: chartData.exercises,
-        notes: chartData.notes
-      },
+      labels: chartData.titles,
       datasets: [
         {
-          data: chartData.times,
+          data: chartData.percentages,
           backgroundColor: chartData.colors
         }
-      ]
+      ],
+      type: chartData.types,
+      exercise: chartData.exercises,
+      time: chartData.times,
+      notes: chartData.notes
     },
     options: {
       borderWidth: 0,
@@ -90,9 +97,13 @@ const createChart = state => {
     }
   });
 
-  const displayTaskDetails = (title, type, exercise, percentage, notes) => {
-    const time = (percentage / 100) * 24;
+  const displayTaskDetails = (title, type, exercise, time, notes) => {
+    // Calculates each facet of time into its respective values
+    let hours = Math.floor(time / 3600);
+    let minutes = Math.floor((time % 3600) / 60);
+    let seconds = time % 60;
 
+    // Replace creating elements with populating pre-existing elements
     let h2 = document.createElement("h2");
     h2.textContent = title;
     let h3 = document.createElement("h3");
@@ -100,7 +111,7 @@ const createChart = state => {
     let h4 = document.createElement("h4");
     h4.textContent = exercise;
     let h5 = document.createElement("h5");
-    h5.textContent = time;
+    h5.textContent = `${hours} hours ${minutes} minutes ${seconds} seconds total`;
     let p = document.createElement("p");
     p.textContent = notes;
 
@@ -109,6 +120,35 @@ const createChart = state => {
     if (exercise) taskDetails.appendChild(h4);
     taskDetails.appendChild(h5);
     taskDetails.appendChild(p);
+  };
+
+  // Time
+  const updateCountdown = targetTime => {
+    const currentTime = new Date();
+
+    const timeDifference = targetTime - currentTime;
+
+    const hoursTen = Math.floor(
+      (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60) / 10
+    );
+    const hoursOne = Math.floor(
+      ((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) % 10
+    );
+    const minutesTen = Math.floor(
+      (timeDifference % (1000 * 60 * 60)) / (1000 * 60) / 10
+    );
+    const minutesOne = Math.floor(
+      ((timeDifference % (1000 * 60 * 60)) / (1000 * 60)) % 10
+    );
+    const secondsTen = Math.floor((timeDifference % (1000 * 60)) / 1000 / 10);
+    const secondsOne = Math.floor(((timeDifference % (1000 * 60)) / 1000) % 10);
+
+    document.getElementById("hours-10").innerText = hoursTen;
+    document.getElementById("hours-1").innerText = hoursOne;
+    document.getElementById("minutes-10").innerText = minutesTen;
+    document.getElementById("minutes-1").innerText = minutesOne;
+    document.getElementById("seconds-10").innerText = secondsTen;
+    document.getElementById("seconds-1").innerText = secondsOne;
   };
 
   // Event listener to look for a click event on the #task-chart canvas
@@ -129,24 +169,31 @@ const createChart = state => {
     // and allows for some functionality to occur after the 'click' event
     if (points.length) {
       const firstPoint = points[0];
-      const title = doughnutChart.data.labels.title[firstPoint.index];
-      const type = doughnutChart.data.labels.type[firstPoint.index];
-      const exercise = doughnutChart.data.labels.exercise[firstPoint.index];
-      const percentage =
-        doughnutChart.data.datasets[firstPoint.datasetIndex].data[
-        firstPoint.index
-        ];
-      const notes = doughnutChart.data.labels.notes[firstPoint.index];
+      const title = doughnutChart.data.labels[firstPoint.index];
+      const type = doughnutChart.data.type[firstPoint.index];
+      const time = doughnutChart.data.time[firstPoint.index];
+      const exercise = doughnutChart.data.exercise[firstPoint.index];
+      const notes = doughnutChart.data.notes[firstPoint.index];
       // Remove contents of task-details to avoid stacking
       taskDetails.textContent = "";
       // Display task info under #task-chart
-      displayTaskDetails(title, type, exercise, percentage, notes);
+      displayTaskDetails(title, type, exercise, time, notes);
       // Display task options
       taskOptions.classList.add("active");
 
-      deleteButton.addEventListener("click", e => {
-        e.preventDefault();
+      // Determining time input based on arc choice
+      let targetTime = new Date(new Date().getTime() + (time + 1) * 1000);
+      // requestAnimationFrame for more accurate timing compared to setInterval
 
+      const playAnimation = () => {
+        updateCountdown(targetTime);
+        window.requestAnimationFrame(playAnimation);
+      };
+
+      window.requestAnimationFrame(playAnimation);
+
+      // Delete Task
+      deleteButton.addEventListener("click", () => {
         const postIdToDelete = state.tasks[firstPoint.index]._id;
 
         axios
@@ -154,13 +201,13 @@ const createChart = state => {
           .then(response => {
             console.log(`Deleted post with ID ${postIdToDelete}`);
             console.log(response);
+            // Reload page on delete to get latest data from server
+            location.reload();
           })
           .catch(error => {
             console.error(error);
           });
       });
-
-      doughnutChart.update();
     }
   });
 
@@ -169,7 +216,8 @@ const createChart = state => {
   for (let i = 0; i < chartData.times.length; i++) {
     typeTimeArray.push({
       type: chartData.types[i],
-      time: chartData.times[i]
+      // Convert into hours
+      time: chartData.times[i] / 3600
     });
   }
 
@@ -313,7 +361,7 @@ function afterRender(state) {
 
   // Create Charts on Home View
   if (state.view === "Home") {
-    createChart(state);
+    createHome(state);
   }
 
   // Create View
@@ -362,6 +410,26 @@ function afterRender(state) {
         .catch(error => {
           console.log("It puked", error);
         });
+    });
+  }
+
+  // Settings
+  // ! Currently broken, does not revert upon view change
+  if (state.view === "Settings") {
+    const toggleTheme = document.getElementById("theme-toggle");
+    const bodyElement = document.querySelector("body");
+    const formLabel = document.querySelector(".form-label");
+    formLabel.style.transition = "0.3s all ease-in";
+    toggleTheme.addEventListener("change", e => {
+      if (e.target.checked) {
+        bodyElement.style.backgroundColor = "#fff";
+        bodyElement.style.color = "#000";
+        formLabel.style.backgroundColor = "#fff";
+      } else {
+        bodyElement.style.backgroundColor = "#000";
+        bodyElement.style.color = "#fff";
+        formLabel.style.backgroundColor = "#000";
+      }
     });
   }
 }

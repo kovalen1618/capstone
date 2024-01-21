@@ -17,8 +17,6 @@ export default state => html`
     <header>
       <h1>Create a Task</h1>
     </header>
-    <!-- Labels use htmlFor instead of for because this is JSX, not HTML -->
-    <!-- ids in inputs must match the htmlFor in their corresponding labels -->
     <div class="input-bar">
       <input
         class="form-input"
@@ -28,7 +26,7 @@ export default state => html`
         placeholder="Name of your task..."
         required
       />
-      <label class="form-label" htmlFor="title">Title</label>
+      <label class="form-label" for="title">Title</label>
     </div>
 
     <div class="type-wrapper">
@@ -42,7 +40,7 @@ export default state => html`
           <option value="Study">Study</option>
           <option value="Work">Work</option>
         </select>
-        <label class="form-label" htmlFor="type">Type</label>
+        <label class="form-label" for="type">Type</label>
       </div>
       <!-- Populate with exercise data -->
       <div class="input-bar" id="exercise-input">
@@ -53,11 +51,12 @@ export default state => html`
   return `<option value="${result.name}">${result.name}</option>`;
 })}
         </select>
-        <label class="form-label" htmlFor="exercise">Exercise</label>
+        <label class="form-label" for="exercise">Exercise</label>
       </div>
     </div>
 
     <div class="type-wrapper">
+      <!-- TODO: Create responsive time input like that of many Phone applications -->
       <div class="input-bar">
         <input
           class="form-input"
@@ -66,8 +65,9 @@ export default state => html`
           id="task-time"
           required
         />
-        <label class="form-label" htmlFor="time">Time</label>
+        <label class="form-label" for="time">Time (Minutes)</label>
       </div>
+
       <div class="input-bar" id="color-input">
         <input
           class="form-input"
@@ -76,7 +76,7 @@ export default state => html`
           value=${generateRandomHexCode()}
           id="task-color"
         />
-        <label class="form-label" htmlFor="color">Color</label>
+        <label class="form-label" for="color">Color</label>
       </div>
     </div>
 
@@ -88,7 +88,7 @@ export default state => html`
         name="notes"
         placeholder="Important items for your task..."
       ></textarea>
-      <label class="form-label" htmlFor="notes">Notes (Optional)</label>
+      <label class="form-label" for="notes">Notes (Optional)</label>
     </div>
 
     <button class="form-button" type="submit">Create Task</button>
