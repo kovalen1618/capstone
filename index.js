@@ -123,7 +123,6 @@ const createHome = state => {
   };
 
   // Time
-  // TODO: Find a way to to stop timer from resetting on page refresh
   const updateCountdown = targetTime => {
     const currentTime = new Date();
 
@@ -411,6 +410,26 @@ function afterRender(state) {
         .catch(error => {
           console.log("It puked", error);
         });
+    });
+  }
+
+  // Settings
+  // ! Currently broken, does not revert upon view change
+  if (state.view === "Settings") {
+    const toggleTheme = document.getElementById("theme-toggle");
+    const bodyElement = document.querySelector("body");
+    const formLabel = document.querySelector(".form-label");
+    formLabel.style.transition = "0.3s all ease-in";
+    toggleTheme.addEventListener("change", e => {
+      if (e.target.checked) {
+        bodyElement.style.backgroundColor = "#fff";
+        bodyElement.style.color = "#000";
+        formLabel.style.backgroundColor = "#fff";
+      } else {
+        bodyElement.style.backgroundColor = "#000";
+        bodyElement.style.color = "#fff";
+        formLabel.style.backgroundColor = "#000";
+      }
     });
   }
 }

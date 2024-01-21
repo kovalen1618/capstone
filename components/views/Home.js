@@ -12,7 +12,7 @@ export default () => html`
           <!-- Populated info goes here -->
         </div>
         <div id="task-options">
-          <i id="edit-button" class="fa-solid fa-pencil"></i>
+          <!-- <i id="edit-button" class="fa-solid fa-pencil"></i> -->
           <i id="delete-button" class="fa-solid fa-x"></i>
         </div>
       </div>

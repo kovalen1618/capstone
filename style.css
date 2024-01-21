@@ -15,7 +15,6 @@
   /* Remove all underlines from hyperlinks and all bullet points from lists */
   text-decoration: none;
   list-style: none;
-  color: #FFFFFF;
   /* Makes sure that any padding or border are accounted for in an element's width or height */
   box-sizing: border-box;
 
@@ -24,6 +23,8 @@
 
 body {
   background-color: black;
+  color: #fff;
+  transition: 0.3s all ease-in;
 }
 
 /* Sidbar Styles */
@@ -177,10 +178,24 @@ main {
   width: 15rem;
 }
 
-/* #task-details */
+#task-details {
+  display: flex;
+  flex-direction: column;
+}
 
 #task-options {
   display: none;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+#task-options > .fa-solid {
+  width: 3rem;
+  justify-content: space-evenly;
+}
+
+#delete-button {
+  color: red;
 }
 
 #task-options.active {
@@ -205,35 +220,6 @@ main {
   margin-top: 1rem;
   position: relative;
 }
-
-/* Pause/Play Button */
-/* #play {
-  background-color: transparent;
-  box-sizing: border-box;
-  height: 2rem;
-
-  border-color: transparent transparent transparent #ffffff;
-  transition: 100ms all ease;
-  will-change: border-width;
-  cursor: pointer;
-
-  border-style: solid;
-  border-width: 1rem 0px 1rem 2rem;
-
-  position: absolute;
-  z-index: 2;
-  top: 0.15rem;
-  left: -4rem;
-}
-
-#play.pause {
-  border-style: double;
-  border-width: 0 0 0 2rem;
-}
-
-#pause:hover {
-  border-color: transparent transparent transparent #3F7859;
-} */
 
 /* <main> Create Task Styles */
 .form-wrapper > header {
@@ -361,10 +347,6 @@ main {
   border-radius: 50%;
 }
 
-#about-wrapper::-webkit-scrollbar {
-
-}
-
 #about-wrapper {
   overflow-x: hidden;
 }
@@ -378,11 +360,52 @@ main {
   margin: 1rem 0;
 }
 
-/* <main> Contact Styles */
+/* <main> Settings Styles */
+#toggle-label {
+  width: 11rem;
+  height: 2rem;
+  position: relative;
+  display: block;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.4), inset 0 -5px 15px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
 
+#toggle-label:after {
+  content: "";
+  width: 2.7rem;
+  height: 1.7rem;
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  background: #000;
+  border-radius: 1.8rem;
+  transition: 0.3s;
+}
+
+#theme-toggle {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+
+#theme-toggle:checked + #toggle-label {
+  background: #000;
+}
+
+#theme-toggle:checked + #toggle-label:after {
+  left: 10.9rem;
+  transform: translateX(-100%);
+  background: #fff;
+}
+
+#toggle-label:active:after {
+  width: 3.4rem;
+}
 
 /* Media Queries */
-/* Took me 30 min to figure out I was missing a colon between width and 500px to explain it not working */
 @media (max-width: 500px) {
   /* Sidebar Styles */
   #sidebar {

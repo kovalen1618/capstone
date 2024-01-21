@@ -15,12 +15,12 @@ export default [
     style: "menu-link",
     icon: `<i class="fa-solid fa-circle-plus"></i>`
   },
-  {
-    title: "Badges",
-    text: `<span class="menu-text">Badges</span>`,
-    style: "menu-link",
-    icon: `<i class="fa-solid fa-award"></i>`
-  },
+  // {
+  //   title: "Badges",
+  //   text: `<span class="menu-text">Badges</span>`,
+  //   style: "menu-link",
+  //   icon: `<i class="fa-solid fa-award"></i>`
+  // },
   {
     title: "About",
     text: `<span class="menu-text">About</span>`,
